@@ -1,0 +1,314 @@
+{% extends 'admin/base_admin.html' %}
+
+{% block extra_css %}
+<style>
+
+/* ================= BASE ================= */
+.page-shell{
+    max-width:1250px;
+    margin:auto;
+    padding:30px;
+}
+
+/* ================= HEADER ================= */
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.title-wrap{
+    display:flex;
+    flex-direction:column;
+}
+
+.title{
+    font-size:1.8rem;
+    font-weight:900;
+    color:#0f172a;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.subtitle{
+    font-size:.9rem;
+    color:#64748b;
+}
+
+/* ================= ACTIONS ================= */
+.actions{
+    display:flex;
+    gap:12px;
+}
+
+.btn{
+    height:46px;
+    padding:0 18px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:.9rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid transparent;
+    transition:.2s;
+}
+
+/* NOVO */
+.btn-primary{
+    background:#0f172a;
+    color:#fff;
+}
+
+.btn-primary:hover{
+    background:#020617;
+}
+
+/* VOLTAR */
+.btn-secondary{
+    background:#f1f5f9;
+    border:1px solid #e2e8f0;
+    color:#334155;
+}
+
+/* ================= GRID ================= */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    gap:22px;
+}
+
+/* ================= CARD ================= */
+.card{
+    position:relative;
+    background:#fff;
+    border-radius:20px;
+    padding:22px;
+    border:1px solid #e2e8f0;
+    box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    transition:.3s;
+}
+
+/* DETALHE SUPERIOR */
+.card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:6px;
+    right:6px;
+    height:4px;
+    background:linear-gradient(90deg,#2563eb,#22c55e);
+    border-radius:20px 20px 0 0;
+    
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 25px 60px rgba(0,0,0,0.12);
+}
+
+/* ================= TEXTOS ================= */
+.nome{
+    font-size:1.2rem;
+    font-weight:800;
+    color:#0f172a;
+}
+
+.desc{
+    font-size:.9rem;
+    color:#64748b;
+    margin-top:6px;
+}
+
+.tempo-servico {
+    margin-top: 6px;
+    font-size: 0.85rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+/* ================= PREÇO ================= */
+.preco-box{
+    margin-top:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.preco{
+    font-size:1.1rem;
+    font-weight:900;
+    color:#059669;
+}
+
+/* ================= BADGE ================= */
+.badge{
+    font-size:.75rem;
+    background:#eff6ff;
+    color:#2563eb;
+    padding:4px 10px;
+    border-radius:999px;
+    font-weight:700;
+}
+
+/* ================= DIVIDER ================= */
+.divider{
+    margin:16px 0;
+    height:1px;
+    background:linear-gradient(to right,transparent,#e2e8f0,transparent);
+}
+
+/* ================= ACTIONS ================= */
+.actions-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+/* BOTÕES PROFISSIONAIS */
+.btn-action{
+    height:40px;
+    padding:0 14px;
+    border-radius:10px;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    font-size:.85rem;
+    font-weight:700;
+
+    border:1px solid #e2e8f0;
+    background:#f8fafc;
+    color:#334155;
+
+    transition:.15s;
+}
+
+/* EDITAR */
+.btn-edit:hover{
+    background:#eef2ff;
+    color:#2563eb;
+}
+
+/* EXCLUIR */
+.btn-delete:hover{
+    background:#fff;
+    color:#dc2626;
+    border-color:#fecaca;
+}
+
+/* MICRO INTERAÇÃO */
+.btn-action:active{
+    transform:scale(.95);
+}
+
+/* ================= HOVER EXTRA ================= */
+.card:hover .nome{
+    color:#2563eb;
+}
+
+/* ================= RESPONSIVO ================= */
+@media(max-width:768px){
+
+    .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .actions{
+        width:100%;
+        justify-content:space-between;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .actions-card{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .btn-action{
+        width:100%;
+        justify-content:center;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-shell">
+
+    <div class="topbar">
+
+        <div class="title-wrap">
+            <div class="title">
+                <i class="bi bi-gear-fill"></i>
+                Gerenciar Serviços
+            </div>
+            <div class="subtitle">
+                Gerencie, edite e mantenha seu catálogo atualizado
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="{% url 'criar_servico' %}" class="btn btn-primary">
+                <i class="bi bi-plus"></i> Novo Serviço
+            </a>
+
+            <a href="{% url 'painel_admin' %}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+
+    </div>
+
+    <div class="grid">
+
+        {% for servico in servicos %}
+        <div class="card">
+
+            <div class="nome">{{ servico.nome }}</div>
+            <div class="desc">{{ servico.descricao }}</div>
+            <div class="tempo-servico">
+                <i class="bi bi-clock"></i>
+                {{ servico.duracao_minutos }} min
+            </div>
+            <div class="preco-box">
+                <div class="preco">
+                    R$ {{ servico.preco|floatformat:2 }}
+                </div>
+
+                <div class="badge">Ativo</div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="actions-card">
+
+                <a href="{% url 'editar_servico' servico.id %}" class="btn-action btn-edit">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+
+                <a href="{% url 'excluir_servico' servico.id %}" class="btn-action btn-delete">
+                    <i class="bi bi-trash"></i> Excluir
+                </a>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+{% endblock %}
