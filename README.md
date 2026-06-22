@@ -66,7 +66,7 @@ Python instalado
 Git instalado
 Passo a passo
 # Clonar o repositório
-git clone https://github.com/erickamorimtrindade/agendamento_project.git
+git clone https://github.com/rafaelolimpioo/agendamento_project.git
 
 # Entrar na pasta
 cd seu-repo
