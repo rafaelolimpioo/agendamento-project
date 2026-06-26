@@ -117,7 +117,7 @@ Desenvolvido por Erick Amorim e Rafael Maia
 [GitHub] [https://github.com/erickamorimtrindade]
 
 [LinkedIn] [https://www.linkedin.com/in/rafaelolimpiomaia/]
-[GitHub] [https://github.com/rafaelolimpioo]
+[GitHub] [https://github.com/rafaelolimpiomaia]
 
 📄 Licença
 
